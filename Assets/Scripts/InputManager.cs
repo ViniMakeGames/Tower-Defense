@@ -29,6 +29,9 @@ public class InputManager : MonoBehaviour
             _cursorPosition = _hit.point;
             _hoveredObject = _hit.transform;
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            _selectedTower = 0;
     }
 
     int _selectedTower = -1;
@@ -38,8 +41,13 @@ public class InputManager : MonoBehaviour
         {
             if(_selectedTower > -1 && _hoveredObject.tag == "TowerSlot" && _hoveredObject.childCount == 1)
             {
-                //Instantiate tower
+                Instantiate(Database.instance.GetTowerById(_selectedTower).gameObject, _hoveredObject);
             }
         }
+    }
+
+    public void SelectTower(int towerId)
+    {
+        _selectedTower = towerId;
     }
 }
